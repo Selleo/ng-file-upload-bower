@@ -935,12 +935,16 @@ ngFileUpload.directive('ngfSelect', ['$parse', '$timeout', '$compile', 'Upload',
     }
 
     var unwatches = [];
-    unwatches.push(scope.$watch(attrGetter('ngfMultiple'), function () {
-      fileElem.attr('multiple', attrGetter('ngfMultiple', scope));
-    }));
-    unwatches.push(scope.$watch(attrGetter('ngfCapture'), function () {
-      fileElem.attr('capture', attrGetter('ngfCapture', scope));
-    }));
+    if (attrGetter('ngfMultiple')) {
+      unwatches.push(scope.$watch(attrGetter('ngfMultiple'), function () {
+        fileElem.attr('multiple', attrGetter('ngfMultiple', scope));
+      }));
+    }
+    if (attrGetter('ngfCapture')) {
+      unwatches.push(scope.$watch(attrGetter('ngfCapture'), function () {
+        fileElem.attr('capture', attrGetter('ngfCapture', scope));
+      }));
+    }
     attr.$observe('accept', function () {
       fileElem.attr('accept', attrGetter('accept'));
     });
